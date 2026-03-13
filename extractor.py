@@ -83,3 +83,62 @@ def build_short_text(article_id: str, title: str, body: str) -> str:
     """
     lower_title = title.lower()
     compact_body = " ".join(body.split())
+
+    if article_id == "Art.4.2":
+        return "Le dossier technique doit inclure description generale, schemas, notes de calcul, normes appliquees et declaration CE."
+    if article_id == "Art.5.1":
+        return "La machine mise sur le marche dans l'UE doit porter le marquage CE."
+    if article_id == "Art.5.2":
+        return "La declaration CE doit contenir les mentions obligatoires et etre signee par un representant habilite."
+    if article_id == "Art.6.1":
+        return "Les elements mobiles dangereux doivent etre proteges par des dispositifs non contournables et sans risque additionnel."
+    if article_id == "Art.6.2":
+        return "La machine doit disposer d'un arret d'urgence identifiable, accessible et conforme EN 13850."
+    if article_id == "Art.7.1":
+        return "La notice doit etre fournie dans les langues officielles des marches vises ainsi que dans la langue d'origine du fabricant."
+    if article_id == "Art.7.2":
+        return "La notice doit inclure fabricant, designation machine, mise en service, utilisation, maintenance et risques residuels."
+    if article_id == "Art.8.1":
+        return "L'evaluation des risques doit couvrir l'ensemble du cycle de vie de la machine et etre documentee."
+    if article_id == "Art.8.2":
+        return "La reduction des risques doit suivre l'ordre : conception, protection, information sur les risques residuels."
+    if article_id == "Art.9.1":
+        return "Un organisme notifie et un certificat CE de type sont obligatoires pour les machines categorie III ou IV."
+
+    first_sentence = compact_body.split(".")[0].strip()
+    return first_sentence if first_sentence else compact_body[:120]
+
+def extract_requirements(directive_text: str) -> list[Requirement]:
+    """
+    Parse la directive et retourne une liste structurée d'exigences.
+    """
+    directive_text = clean_text(directive_text)
+    articles = split_articles(directive_text)
+
+    requirements: list[Requirement] = []
+
+    for article_id, title, body in articles:
+        nature, condition = infer_nature(article_id, title, body)
+
+        requirement = Requirement(
+            article_id=article_id,
+            title=title,
+            short_text=build_short_text(article_id, title, body),
+            category=infer_category(title),
+            nature=nature,
+            source_text=body,
+            condition=condition,
+        )
+        requirements.append(requirement)
+
+    return requirements
+
+if __name__ == "__main__":
+    text = load_text("data/directive.txt")
+    requirements = extract_requirements(text)
+
+    for req in requirements:
+        print(f"{req.article_id} | {req.title} | {req.category} | {req.nature}")
+        print(f"  -> {req.short_text}")
+        if req.condition:
+            print(f"  condition: {req.condition}")
