@@ -1,7 +1,7 @@
 
 # ***********************************************************************************
 # comparator.py : compare les exigences et les faits, puis sort des constats d’audit.
-# On va faire une logique par article.
+# On va faire une logique par article, via une approche de matching avancé - sans LLM.
 # ***********************************************************************************
 
 from __future__ import annotations
