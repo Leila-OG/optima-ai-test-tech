@@ -1,3 +1,4 @@
+
 # Génération de rapport d'audit réglementaire
 
 Ce projet réalise un audit automatisé de conformité réglementaire à partir de deux sources texte :
@@ -31,3 +32,37 @@ L'objectif est de :
 └── tests/
     ├── conftest.py
     └── test_smoke.py
+```
+
+## Pré-requis
+- Python 3.10+
+- un environnement virtuel Python recommandé
+
+## Installation
+
+``Créer et activer l'environnement virtuel.``
+
+## Windows Powershell 
+```
+python -m venv optimai-env
+.\optimai-env\Scripts\Activate.ps1
+```
+
+## Lancer l'audit complet
+```
+python audit.py
+```
+
+Le script :
+- lit ``data/directive.txt`` ;
+- lit ``data/product_sheet.txt`` ;
+- extrait les exigences ;
+- analyse la fiche produit ;
+- compare les deux ;
+- affiche un rapport final dans le terminal.
+
+## Lancer les tests
+```
+pytest -q
+```
+
