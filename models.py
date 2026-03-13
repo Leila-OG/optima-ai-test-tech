@@ -1,3 +1,7 @@
+# **************************************************************************
+# models.py : définit les objets que tous les autres modules vont manipuler.
+# **************************************************************************
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
