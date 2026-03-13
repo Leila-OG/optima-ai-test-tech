@@ -66,3 +66,20 @@ Le script :
 pytest -q
 ```
 
+## Résultat attendu
+Le programme affiche un rapport d'audit contenant notamment :
+- le statut global ;
+- les écarts bloquants ;
+- les écarts majeurs ;
+- les cas ambigus ;
+- les points conformes ;
+- les exigences non applicables.
+
+## Notes d'implémentation
+Le projet repose sur une approche déterministe par règles :
+- extraction structurée des articles de la directive ;
+- parsing de la fiche produit par sections ;
+- comparaison métier article par article ;
+- génération de rapport texte.
+
+Cette approche a été privilégiée pour maximiser **la lisibilité, la robustesse, la traçabilité des décisions ainsi que la reproductibilité sans dépendance à une API LLM.**
