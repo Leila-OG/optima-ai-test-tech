@@ -124,7 +124,7 @@ def check_art_5_1(req: Requirement, facts: ProductInfos) -> AuditFinding:
         justification="Le marquage CE est obligatoire avant mise sur le marche dans l'Union Europeenne.",
     )
 
-def check_art_5_2(req: Requirement, facts: ProductFacts) -> AuditFinding:
+def check_art_5_2(req: Requirement, facts: ProductInfos) -> AuditFinding:
     ce_decl = facts.documentation.get("Declaration CE", "")
     has_signature = contains_any(ce_decl, ["signee"])
     has_name = bool(facts.manufacturer)
@@ -179,7 +179,7 @@ def check_art_6_1(req: Requirement, facts: ProductInfos) -> AuditFinding:
         justification="Aucun dispositif de protection adequat n'est clairement retrouve dans la fiche.",
     )
 
-def check_art_6_2(req: Requirement, facts: ProductFacts) -> AuditFinding:
+def check_art_6_2(req: Requirement, facts: ProductInfos) -> AuditFinding:
     emergency = facts.safety.get("Dispositif de coupure d'urgence", "")
     certification = facts.safety.get("Certification arret urgence", "")
 
@@ -311,7 +311,7 @@ def check_art_8_1(req: Requirement, facts: ProductInfos) -> AuditFinding:
         justification="L'evaluation des risques est une exigence structurante de la directive.",
     )
 
-def check_art_8_2(req: Requirement, facts: ProductFacts) -> AuditFinding:
+def check_art_8_2(req: Requirement, facts: ProductInfos) -> AuditFinding:
     design_reduction = facts.safety.get("Reduction des risques par conception", "")
     residual_risks_notice = facts.user_docs.get("Contenu notice - risques residuels", "")
     protection = facts.safety.get("Capots de protection sur broche et zone d'usinage", "")
